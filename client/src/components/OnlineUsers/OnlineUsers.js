@@ -12,6 +12,13 @@ const OnlineUsers = ({users}) =>(
                 <h1>Active Users</h1>
                 <div className="activeContainer">
                     <h2>
+                        {users.map(({name, room}) => (
+                            <div key={name} className="activeItem">
+                                <img alt="Online Icon" src={onlineIcon}/>
+                                {name}
+                                
+                            </div>
+                    ))}
                     </h2>
                 </div>
             </div>

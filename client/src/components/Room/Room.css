@@ -1,0 +1,26 @@
+.textContainer2 {
+    margin-left: 100px;
+    justify-content: space-between;
+  }
+  .textContainer2 h1{
+    color: black;
+  }
+.roomContainer {
+    display: inline-block;
+    text-align: center;
+    background-color: rgb(46, 123, 146);
+    width: 30%;
+    margin: 1% 1%;
+    border-radius: 5px;
+    padding: 5% 0%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+.roomContainer:hover {
+    cursor: pointer;
+}
+
+.roomContainer h2 {
+    font-size: 36px;
+    color: white;
+}

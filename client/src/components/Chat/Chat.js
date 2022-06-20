@@ -6,16 +6,18 @@ import './Chat.css';
 import InfoBar from "../InfoBar/InfoBar";
 import Input from "../Input/Input";
 import Messages from "../Messages/Messages";
+import OnlineUsers from "../OnlineUsers/OnlineUsers";
 
 let socket;
 
 const Chat = () => {
     const location = useLocation();
+    const [users, setUsers] = useState("");
     const [name, setName] = useState("");
     const [room, setRoom] = useState("");
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
-    const ENDPOINT = 'https://react-realtimechat-application.herokuapp.com/';
+    const ENDPOINT = 'localhost:8000';
     useEffect(() => {
         const { name, room } = queryString.parse(location.search);       
         
@@ -24,24 +26,23 @@ const Chat = () => {
         setName(name);
         setRoom(room);
 
-        socket.emit('join', { name, room }, () => {
-           
+        socket.emit('join', { name, room }, (error) => {
+            if(error) {
+                alert(error);
+              }
         });
-
-        return () => {
-            socket.emit('disconnect');
-
-            socket.off();
-        }
-
     },[ENDPOINT, location.search])
 
     useEffect(() => {
         socket.on('message', (message) => {
             setMessages([...messages, message]);
-        })
+        });
+        socket.on("roomData", ({ users }) => {
+            setUsers(users);
+          });
     }, [messages])
 
+    console.log(users);
     const sendMessage = (event) => {
         event.preventDefault();
 
@@ -59,6 +60,7 @@ const Chat = () => {
                 <Messages messages={messages} name={name}/>
                 <Input message={message} setMessage={setMessage} sendMessage={sendMessage}/>
             </div>
+            <OnlineUsers users={users}/>
         </div>
     )
 }
